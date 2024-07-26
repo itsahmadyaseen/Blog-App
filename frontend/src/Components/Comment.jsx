@@ -13,7 +13,7 @@ const Comment = ({ blogId, userId }) => {
         const response = await axiosInstance.get(
           `http://localhost:3000/api/v1/comments/${blogId}/comments`
         );
-        console.log("response", response.data.data);
+        // console.log("response", response.data.data);
         setComments(response.data.data);
       } catch (error) {
         console.log("Error fetching comments", error);
@@ -24,13 +24,13 @@ const Comment = ({ blogId, userId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("new comment", newComments);
+    // console.log("new comment", newComments);
     try {
       const response = await axiosInstance.post(
         `http://localhost:3000/api/v1/comments/${blogId}/comment`,
         { content: newComments }
       );
-      console.log(response);
+      // console.log(response);
       window.location.reload();
     } catch (error) {
       console.error("Error adding comment:", error);
@@ -39,9 +39,18 @@ const Comment = ({ blogId, userId }) => {
 
   const handleDelete = async (commentId) => {
     try {
-        
+      // console.log(commentId, "commentId");
+      await axiosInstance.delete(
+        `http://localhost:3000/api/v1/comments/${blogId}/comment`,
+        {
+          data: {
+            commentId: commentId,
+          },
+        }
+      );
+      window.location.reload();
     } catch (error) {
-        console.log('Error deleting comment', error);
+      console.log("Error deleting comment", error);
     }
   };
 
@@ -57,18 +66,25 @@ const Comment = ({ blogId, userId }) => {
             type="text"
             value={newComments}
             onChange={(e) => setNewComments(e.target.value)}
-            className="bg-gray-500 text-white"
+            className="border border-black rounded-md p-1 bg-gray-500 ml-2 text-white"
             required
           />
         </form>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-2">
         {comments.map((comment) => (
-          <div key={comment._id}>
+          <div key={comment._id} className="flex justify-between">
             <div className="bg-white rounded-lg shadow-md overflow-hidden m- p-3">
               <h3 className=" text-md">{comment.content}</h3>
             </div>
-            <button onClick={() => handleDelete(comment._id)}>Delete</button>
+            {comment.userId === userId && (
+              <button
+                className="border border-black rounded-md p-1 h-10"
+                onClick={() => handleDelete(comment._id)}
+              >
+                Delete
+              </button>
+            )}
           </div>
         ))}
       </div>

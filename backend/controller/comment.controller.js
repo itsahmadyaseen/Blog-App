@@ -37,7 +37,7 @@ export const removeComment = async (req, res) => {
   const { commentId } = req.body;
 
   if (!blogId || !userId || !commentId) {
-    console.log("Provide all details", blogId, userId);
+    console.log("Provide all details", blogId, userId, commentId);
     return res.status(400).json({ message: "Provide all details", data: null });
   }
   

@@ -45,7 +45,7 @@ const LikeButton = ({ blogId, userId }) => {
 
   return (
     <div>
-      <button className="bg-blue-800 rounded p-2 text-white w-16" onClick={toggleLike}>{liked ? "Unlike" : "Like"}</button>
+      <button className="border border-black rounded-md p-1 h-10 w-16" onClick={toggleLike}>{liked ? "Unlike" : "Like"}</button>
       <span className="m-4 text-2xl">{likesCount}</span>
     </div>
   );
