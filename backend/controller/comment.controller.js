@@ -61,7 +61,7 @@ export const getCommentsForBlog = async (req, res) => {
     return res.status(400).json({ message: "Provide all details", data: null });
   }
   try {
-    const comments = await Comment.find({ blogId });
+    const comments = await Comment.find({ blogId }).populate('userId','fullname');
     console.log("Comment fetched", comments);
     return res.status(200).json({ message: "Comment fetched", data: comments });
   } catch (error) {

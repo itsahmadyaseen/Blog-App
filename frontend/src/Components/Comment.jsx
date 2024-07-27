@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const Comment = ({ blogId, userId }) => {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
-  const [newComments, setNewComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -13,10 +13,11 @@ const Comment = ({ blogId, userId }) => {
         const response = await axiosInstance.get(
           `http://localhost:3000/api/v1/comments/${blogId}/comments`
         );
-        // console.log("response", response.data.data);
-        setComments(response.data.data);
+        const data = response.data.data;
+        console.log("response", data);
+        setComments(data);
       } catch (error) {
-        console.log("Error fetching comments", error);
+        console.log("Error fetching comments g", error);
       }
     };
     fetchComments();
@@ -64,8 +65,8 @@ const Comment = ({ blogId, userId }) => {
           </button>
           <input
             type="text"
-            value={newComments}
-            onChange={(e) => setNewComments(e.target.value)}
+            value={newComment}
+            onChange={(e)=> setNewComment(e.target.value)}
             className="border border-black rounded-md p-1 bg-gray-500 ml-2 text-white"
             required
           />
@@ -74,10 +75,14 @@ const Comment = ({ blogId, userId }) => {
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-2">
         {comments.map((comment) => (
           <div key={comment._id} className="flex justify-between">
-            <div className="bg-white rounded-lg shadow-md overflow-hidden m- p-3">
+            <div className="bg-white  flex justify-around rounded-lg shadow-md overflow-hidden m- p-3">
               <h3 className=" text-md">{comment.content}</h3>
             </div>
-            {comment.userId === userId && (
+            {comment.userId._id !== userId && (
+              <h5 className="">~{comment.userId.fullname}</h5>
+            )}
+            
+            {comment.userId._id === userId && (
               <button
                 className="border border-black rounded-md p-1 h-10"
                 onClick={() => handleDelete(comment._id)}
