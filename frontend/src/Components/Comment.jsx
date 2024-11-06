@@ -1,9 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
 import { useEffect, useState } from "react";
 
 const Comment = ({ blogId, userId }) => {
-  const navigate = useNavigate();
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
@@ -14,25 +12,25 @@ const Comment = ({ blogId, userId }) => {
           `http://localhost:3000/api/v1/comments/${blogId}/comments`
         );
         const data = response.data.data;
-        console.log("response", data);
+        console.log("Fetched comments:", data);
         setComments(data);
       } catch (error) {
-        console.log("Error fetching comments g", error);
+        console.log("Error fetching comments:", error);
       }
     };
     fetchComments();
-  }, [blogId, userId]);
+  }, [blogId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("new comment", newComments);
     try {
-      await axiosInstance.post(
+      const response = await axiosInstance.post(
         `http://localhost:3000/api/v1/comments/${blogId}/comment`,
         { content: newComment }
       );
-      // console.log(response);
-      window.location.reload();
+      const addedComment = response.data.data; // assuming response contains the new comment data
+      setComments((prev) => [...prev, addedComment]);
+      setNewComment(""); // Clear the input field after adding
     } catch (error) {
       console.error("Error adding comment:", error);
     }
@@ -40,7 +38,6 @@ const Comment = ({ blogId, userId }) => {
 
   const handleDelete = async (commentId) => {
     try {
-      // console.log(commentId, "commentId");
       await axiosInstance.delete(
         `http://localhost:3000/api/v1/comments/${blogId}/comment`,
         {
@@ -50,9 +47,8 @@ const Comment = ({ blogId, userId }) => {
         }
       );
       setComments((prev) => prev.filter((comm) => comm._id !== commentId));
-
     } catch (error) {
-      console.log("Error deleting comment", error);
+      console.log("Error deleting comment:", error);
     }
   };
 
@@ -61,28 +57,32 @@ const Comment = ({ blogId, userId }) => {
       <div className="flex gap-8">
         <h1 className="font-bold text-2xl">Comments</h1>
         <form onSubmit={handleSubmit}>
-          <button className="border border-black rounded-md p-1 " type="submit">
-            Add Comment
-          </button>
           <input
             type="text"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             className="border border-black rounded-md p-1 bg-gray-500 ml-2 text-white"
             required
+            placeholder="Add a comment"
           />
+          <button
+            className="border border-black rounded-md p-1 ml-2"
+            type="submit"
+          >
+            Add Comment
+          </button>
         </form>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-2">
+      <div className="grid grid-cols-1 gap-2 mt-4">
         {comments.map((comment) => (
-          <div key={comment._id} className="flex justify-between">
-            <div className="bg-white  flex justify-around rounded-lg shadow-md overflow-hidden m- p-3">
-              <h3 className=" text-md">{comment.content}</h3>
-            </div>
+          <div
+            key={comment._id}
+            className="flex justify-between items-center bg-white rounded-lg shadow-md p-3"
+          >
+            <h3 className="text-md">{comment.content}</h3>
             {comment.userId._id !== userId && (
-              <h5 className="">~{comment.userId.fullname}</h5>
+              <h5 className="text-gray-600">~{comment.userId.fullname}</h5>
             )}
-
             {comment.userId._id === userId && (
               <button
                 className="border border-black rounded-md p-1 h-10"
