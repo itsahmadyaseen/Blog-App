@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const Comment = ({ blogId, userId }) => {
   const navigate = useNavigate();
   const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -27,9 +27,9 @@ const Comment = ({ blogId, userId }) => {
     e.preventDefault();
     // console.log("new comment", newComments);
     try {
-      const response = await axiosInstance.post(
+      await axiosInstance.post(
         `http://localhost:3000/api/v1/comments/${blogId}/comment`,
-        { content: newComments }
+        { content: newComment }
       );
       // console.log(response);
       window.location.reload();
@@ -49,7 +49,8 @@ const Comment = ({ blogId, userId }) => {
           },
         }
       );
-      window.location.reload();
+      setComments((prev) => prev.filter((comm) => comm._id !== commentId));
+
     } catch (error) {
       console.log("Error deleting comment", error);
     }
@@ -66,7 +67,7 @@ const Comment = ({ blogId, userId }) => {
           <input
             type="text"
             value={newComment}
-            onChange={(e)=> setNewComment(e.target.value)}
+            onChange={(e) => setNewComment(e.target.value)}
             className="border border-black rounded-md p-1 bg-gray-500 ml-2 text-white"
             required
           />
@@ -81,7 +82,7 @@ const Comment = ({ blogId, userId }) => {
             {comment.userId._id !== userId && (
               <h5 className="">~{comment.userId.fullname}</h5>
             )}
-            
+
             {comment.userId._id === userId && (
               <button
                 className="border border-black rounded-md p-1 h-10"
