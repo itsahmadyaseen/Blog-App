@@ -33,8 +33,8 @@ export const createBlog = async (req, res) => {
       userId: userId,
     });
     await newBlog.save();
-    console.log("Blog created", newBlog);
-    return res.status(201).json({ message: "Blog created", data: newBlog });
+    console.log("Blog created");
+    return res.status(201).json({ message: "Blog created" });
   } catch (error) {
     console.log("Error creating blog", error);
     return res
@@ -48,13 +48,11 @@ export const getBlogs = async (req, res) => {
     const blogs = await Blog.find();
     console.log(blogs);
     if (!blogs || blogs.length === 0) {
-      console.log("Cannot find blogs", blogs);
-      return res
-        .status(404)
-        .json({ message: "Cannot find blogs", data: blogs });
+      console.log("Cannot find blogs");
+      return res.status(404).json({ message: "Cannot find blogs" });
     }
 
-    console.log("Blogs fetched", blogs);
+    console.log("Blogs fetched");
     return res.status(200).json({ message: "Users fetched", data: blogs });
   } catch (error) {
     console.log("Error fetching users", error);
@@ -165,8 +163,8 @@ export const updateBlog = async (req, res) => {
       return res.status(500).json({ message: "Blog update failed" });
     }
 
-    console.log("Blog updated", response);
-    return res.status(200).json({ message: "Blog updated", data: response });
+    console.log("Blog updated");
+    return res.status(200).json({ message: "Blog updated" });
   } catch (error) {
     console.error("Blog updation failed", error);
     return res
@@ -185,7 +183,7 @@ export const getBlogById = async (req, res) => {
       console.log("Blog fetch failed ", getBlog);
       return res.status(404).json({ message: "Blog fetch failed" });
     }
-    console.log("Blog fetched", getBlog);
+    console.log("Blog fetched");
     return res.status(200).json({ data: getBlog, userId: req.user.id });
   } catch (error) {
     console.log("Blog fetch failed ", error);
@@ -201,7 +199,7 @@ export const getPersonalBlogs = async (req, res) => {
       console.log("Cannot get blogs for user", blogs);
       return res.status(404).json("Cannot get blogs for user", blogs);
     }
-    console.log("blogs", blogs);
+    console.log("blogs");
     return res.status(200).json({ message: "Blogs Fetched", data: blogs });
   } catch (error) {
     console.log("Blog fetch failed ", error);
