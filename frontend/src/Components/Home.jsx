@@ -11,7 +11,9 @@ const Home = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axiosInstance.get("http://localhost:3000/api/v1/blogs/get-blogs");
+        const response = await axiosInstance.get(
+          "http://localhost:3000/api/v1/blogs/get-blogs"
+        );
         setBlogs(response.data.data || []);
       } catch (error) {
         console.error("Error fetching blogs:", error);
@@ -43,8 +45,6 @@ const Home = () => {
 };
 
 export default Home;
-
-
 
 /// import { useEffect, useState } from "react";
 // import Navbar from "./Navbar";

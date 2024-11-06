@@ -84,7 +84,10 @@ const AddBlog = () => {
             <input
               id="thumbnail"
               type="file"
-              onChange={(e) => {console.log(e.target.files); setThumbnail(e.target.files[0])}}
+              onChange={(e) => {
+                console.log(e.target.files);
+                setThumbnail(e.target.files[0]);
+              }}
               className="w-full px-3 py-2 border rounded-lg"
             />
           </div>

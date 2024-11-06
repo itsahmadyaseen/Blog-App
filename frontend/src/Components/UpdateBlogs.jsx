@@ -9,14 +9,15 @@ const UpdateBlog = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [author, setAuthor] = useState("");
-  const [thumbnail, setThumbnail] = useState('');
+  const [thumbnail, setThumbnail] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-
-        const response = await axiosInstance.get(`http://localhost:3000/api/v1/blogs/get-blog/${id}`);
+        const response = await axiosInstance.get(
+          `http://localhost:3000/api/v1/blogs/get-blog/${id}`
+        );
         const fetchedBlog = response.data.data;
         console.log(fetchedBlog.thumbnail);
         console.log(fetchedBlog.title);
@@ -27,7 +28,7 @@ const UpdateBlog = () => {
         setAuthor(fetchedBlog.author);
       } catch (error) {
         console.error("Error fetching blog details", error);
-        navigate('/unauthorized');
+        navigate("/unauthorized");
       }
     };
 
@@ -44,15 +45,18 @@ const UpdateBlog = () => {
     if (thumbnail) {
       formData.append("thumbnail", thumbnail);
     }
-    console.log('thumbnail here', thumbnail);
+    console.log("thumbnail here", thumbnail);
 
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
 
     try {
-      console.log('id', id);
-      await axiosInstance.patch(`http://localhost:3000/api/v1/blogs/update-blog/${id}`, formData);
+      console.log("id", id);
+      await axiosInstance.patch(
+        `http://localhost:3000/api/v1/blogs/update-blog/${id}`,
+        formData
+      );
       navigate(`/blog/${id}`);
     } catch (error) {
       console.error("Error updating blog", error);
@@ -80,7 +84,10 @@ const UpdateBlog = () => {
           <h1 className="text-3xl font-bold mb-4">Update Blog</h1>
           <form onSubmit={handleUpdate}>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="title"
+              >
                 Title
               </label>
               <input
@@ -92,7 +99,10 @@ const UpdateBlog = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="description"
+              >
                 Description
               </label>
               <textarea
@@ -103,7 +113,10 @@ const UpdateBlog = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="description"
+              >
                 Author
               </label>
               <textarea
@@ -114,22 +127,28 @@ const UpdateBlog = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="thumbnail">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="thumbnail"
+              >
                 Thumbnail
               </label>
               <input
                 id="thumbnail"
                 type="file"
-                onChange={(e) => {console.log('there',e.target.files[0]); setThumbnail(e.target.files[0])}}
+                onChange={(e) => {
+                  console.log("there", e.target.files[0]);
+                  setThumbnail(e.target.files[0]);
+                }}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
-              {thumbnail && typeof thumbnail === 'string' && (
-              <img
-                src={thumbnail}
-                alt="Current Thumbnail"
-                className="w-full h-auto mt-4"
-              />
-            )}
+              {thumbnail && typeof thumbnail === "string" && (
+                <img
+                  src={thumbnail}
+                  alt="Current Thumbnail"
+                  className="w-full h-auto mt-4"
+                />
+              )}
             </div>
             <button
               type="submit"

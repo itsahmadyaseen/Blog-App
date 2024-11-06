@@ -70,7 +70,7 @@ const BlogDetails = () => {
           />
           <p className="text-gray-700 mb-4 text-2xl">{blog.description}</p>
           <p className="text-gray-700 mb-4 text-1xl">By {blog.author}</p>
-          <LikeButton blogId={blog._id} userId={userId}/>
+          <LikeButton blogId={blog._id} userId={userId} />
           {userId == blog.userId && (
             <>
               <button
@@ -81,14 +81,14 @@ const BlogDetails = () => {
               </button>
               <button
                 className="bg-blue-800 rounded p-2 text-white m-4"
-                onClick={()=>handleUpdateClick(blog._id)}
+                onClick={() => handleUpdateClick(blog._id)}
               >
                 Update Post
               </button>
             </>
           )}
-          
-          <Comment blogId={blog._id} userId={userId}/>
+
+          <Comment blogId={blog._id} userId={userId} />
         </div>
       </div>
     </>
