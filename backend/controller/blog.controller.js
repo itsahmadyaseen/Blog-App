@@ -46,7 +46,6 @@ export const createBlog = async (req, res) => {
 export const getBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find();
-    console.log(blogs);
     if (!blogs || blogs.length === 0) {
       console.log("Cannot find blogs");
       return res.status(404).json({ message: "Cannot find blogs" });
