@@ -8,12 +8,25 @@ import likeRouter from "./routes/like.routes.js";
 import commentRouter from "./routes/comments.routes.js";
 
 const app = express();
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://blog-journal.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173, https://blog-journal.vercel.app",
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
 dotenv.config();
 app.use(express.json());
 connection();
