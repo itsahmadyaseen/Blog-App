@@ -28,7 +28,7 @@ export const addLike = async (req, res) => {
 
     await Blog.findByIdAndUpdate(blogId, { $inc: { likesCount: 1 } });
 
-    console.log("Like added", like);
+    console.log("Like added");
     return res.status(200).json({ message: "Like added", data: like });
   } catch (error) {
     console.log("Error adding like", error);
@@ -56,7 +56,7 @@ export const removeLike = async (req, res) => {
     await Blog.findByIdAndUpdate(blogId, { $inc: { likesCount: -1 } });
 
     console.log("Like removed");
-    return res.status(200).json({ message: "User already liked", data: null });
+    return res.status(200).json({ message: "User already liked" });
   } catch (error) {
     console.log("Error removing like", error);
     return res
@@ -70,14 +70,14 @@ export const getLikesForBlog = async (req, res) => {
   console.log("blogId", blogId);
   if (!blogId) {
     console.log("Provide blog id", id);
-    return res.status(400).json({ message: "Provide blog id", data: null });
+    return res.status(400).json({ message: "Provide blog id" });
   }
   const userId = req.user.id;
-  console.log("userId, ", userId);
+  // console.log("userId, ", userId);
 
   try {
     const likes = await Like.find({ blogId, userId });
-    console.log("Like fetched", likes);
+    console.log("Like fetched");
     return res.status(200).json({ message: "Likes fetched", data: likes });
   } catch (error) {
     console.log("Error fetching likes", error);
