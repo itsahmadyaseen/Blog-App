@@ -6,15 +6,18 @@ import axiosInstance from "../axiosInstance";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
+        setLoading(true);
         const response = await axiosInstance.get(
           "http://localhost:3000/api/v1/blogs/get-blogs"
         );
         setBlogs(response.data.data || []);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching blogs:", error);
         setBlogs([]);
@@ -31,6 +34,14 @@ const Home = () => {
   return (
     <>
       <Navbar />
+      {loading && (
+        <>
+          <div>
+            <h1 className="text-3xl font-bold ">Loading...</h1>
+          </div>
+        </>
+      )}
+
       <div className="container mx-auto mt-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogs.map((blog) => (
