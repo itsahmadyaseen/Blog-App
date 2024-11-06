@@ -27,7 +27,7 @@ export const signupUser = async (req, res) => {
     });
 
     await newUser.save();
-    console.log("Signup successfull", newUser);
+    console.log("Signup successfull");
     res.status(201).json({ message: "Signup successfull", data: newUser });
   } catch (error) {
     console.log("Error signing up", error);
@@ -47,9 +47,7 @@ export const loginUser = async (req, res) => {
     const existingUser = await User.findOne({ username: username });
     if (!existingUser) {
       console.log("User does not exist", existingUser);
-      return res
-        .status(404)
-        .json({ message: "User does not exist", data: null });
+      return res.status(404).json({ message: "User does not exist" });
     }
 
     bcrypt.compare(password, existingUser.password, (err, data) => {
@@ -58,7 +56,7 @@ export const loginUser = async (req, res) => {
         const token = jwt.sign(authClaims, process.env.SECRET_KEY, {
           expiresIn: "1d",
         });
-        console.log("token ", token);
+        // console.log("token ", token);
         console.log("Login successfull");
         return res.status(200).json({ id: existingUser.id, token: token });
       } else {
@@ -77,10 +75,10 @@ export const getUsers = async (req, res) => {
     const users = await User.find();
     console.log(users);
     if (!users) {
-      console.log("Cannot find user", users);
-      return res.status(400).json({ message: "Cannot find user", data: users });
+      console.log("Cannot find user");
+      return res.status(400).json({ message: "Cannot find user" });
     }
-    console.log("Users fetched", users);
+    console.log("Users fetched");
     return res.status(200).json({ message: "Users fetched", data: users });
   } catch (error) {
     console.log("Error fetching users", error);
@@ -94,17 +92,15 @@ export const getUserById = async (req, res) => {
   try {
     const id = req.params.id;
     console.log(id);
-    const getBlog = await User.findById(id);
-    if (!getBlog) {
-      console.log("User fetch failed ", getBlog);
+    const getUser = await User.findById(id);
+    if (!getUser) {
+      console.log("User fetch failed ", getUser);
       return res.status(404).json({ message: "User fetch failed" });
     }
-    console.log("User fetched", getBlog);
-    return res.status(200).json({ message: "User fetched", data: getBlog });
+    console.log("User fetched");
+    return res.status(200).json({ message: "User fetched", data: getUser });
   } catch (error) {
     console.log("User fetch failed ", error);
     return res.status(500).json({ message: "User fetch failed", data: error });
   }
 };
-
-
