@@ -1,7 +1,5 @@
 import Comment from "../models/comment.model.js";
 
-import Blog from "../models/blog.model.js";
-
 export const addComment = async (req, res) => {
   const { content } = req.body;
   const { blogId } = req.params;
@@ -21,8 +19,8 @@ export const addComment = async (req, res) => {
 
     await comment.save();
 
-    console.log("Comment added", comment);
-    return res.status(200).json({ message: "Comment added", data: comment });
+    console.log("Comment added");
+    return res.status(200).json({ message: "Comment added" });
   } catch (error) {
     console.log("Error creating comment", error);
     return res
@@ -38,13 +36,13 @@ export const removeComment = async (req, res) => {
 
   if (!blogId || !userId || !commentId) {
     console.log("Provide all details", blogId, userId, commentId);
-    return res.status(400).json({ message: "Provide all details", data: null });
+    return res.status(400).json({ message: "Provide all details" });
   }
-  
+
   try {
     await Comment.findByIdAndDelete(commentId);
     console.log("Comment removed");
-    return res.status(200).json({ message: "Comment removed", data: null });
+    return res.status(200).json({ message: "Comment removed" });
   } catch (error) {
     console.log("Error removing comment", error);
     return res
@@ -61,8 +59,11 @@ export const getCommentsForBlog = async (req, res) => {
     return res.status(400).json({ message: "Provide all details", data: null });
   }
   try {
-    const comments = await Comment.find({ blogId }).populate('userId','fullname');
-    console.log("Comment fetched", comments);
+    const comments = await Comment.find({ blogId }).populate(
+      "userId",
+      "fullname"
+    );
+    console.log("Comment fetched");
     return res.status(200).json({ message: "Comment fetched", data: comments });
   } catch (error) {
     console.log("Error fetching comment", error);
