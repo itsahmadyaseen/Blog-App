@@ -11,9 +11,8 @@ const MyBlogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const userId = localStorage.getItem('id');
         const response = await axiosInstance.get(
-          `http://localhost:3000/api/v1/blogs/get-user-blogs/${userId}`
+          `http://localhost:3000/api/v1/blogs/get-user-blogs`
         );
         // console.log(response.data);
         const fetchedBlogs = response.data.data;
@@ -45,10 +44,7 @@ const MyBlogs = () => {
           {blogs.map((blog) => (
             // eslint-disable-next-line react/jsx-key
             <div key={blog._id} onClick={() => blogDetails(blog._id)}>
-              <BlogCard
-                title={blog.title}
-                thumbnail={blog.thumbnail}
-              />
+              <BlogCard title={blog.title} thumbnail={blog.thumbnail} />
             </div>
           ))}
         </div>

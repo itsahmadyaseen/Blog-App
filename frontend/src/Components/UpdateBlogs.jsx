@@ -39,6 +39,8 @@ const UpdateBlog = () => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
+    formData.append("author", author);
+
     if (thumbnail) {
       formData.append("thumbnail", thumbnail);
     }

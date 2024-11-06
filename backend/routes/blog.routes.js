@@ -24,6 +24,6 @@ router.patch(
   updateBlog
 );
 router.get("/get-blog/:id", verifyJWT, getBlogById);
-router.get("/get-user-blogs/:id", verifyJWT, getPersonalBlogs);
+router.get("/get-user-blogs", verifyJWT, getPersonalBlogs);
 
 export default router;

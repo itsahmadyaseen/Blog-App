@@ -115,9 +115,11 @@ export const updateBlog = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, description, author } = req.body;
-console.log('inside here');
+    console.log("inside here");
+
+    console.log(" all details", { id, title, description, author });
+
     if (!id || !title || !description || !author) {
-      console.log("Provide all details", { title, description, author });
       return res.status(400).json({ message: "Provide all details" });
     }
 
@@ -149,7 +151,7 @@ console.log('inside here');
       title,
       description,
       author,
-      ...(thumbnailPath && { thumbnail: thumbnailPath }),
+      thumbnail: thumbnailPath,
     };
 
     const response = await Blog.findByIdAndUpdate(
@@ -167,10 +169,11 @@ console.log('inside here');
     return res.status(200).json({ message: "Blog updated", data: response });
   } catch (error) {
     console.error("Blog updation failed", error);
-    return res.status(500).json({ message: "Blog updation failed", data: error });
+    return res
+      .status(500)
+      .json({ message: "Blog updation failed", data: error });
   }
 };
-
 
 export const getBlogById = async (req, res) => {
   try {
