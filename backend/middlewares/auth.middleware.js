@@ -3,11 +3,9 @@ import jwt from "jsonwebtoken";
 export const verifyJWT = async (req, res, next) => {
   // console.log('headers',req.headers);
   const authHeader = req.headers["authorization"];
-  console.log("authheader ", authHeader);
   const token = authHeader && authHeader.split(" ")[1];
-  console.log("token", token);
   if (!token) {
-    console.log("Invalid token", token);
+    console.log("Invalid token");
     return res.status(401).json({ message: "Invalid token", data: token });
   }
 
@@ -15,14 +13,13 @@ export const verifyJWT = async (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     // console.log('decodedToken', decodedToken);
     if (!decodedToken) {
-      console.log("Forbidden verification", decodedToken);
+      console.log("Forbidden verification");
       return res
         .status(403)
         .json({ message: "Forbidden verification", data: decodedToken });
     }
     console.log("User verified");
     req.user = decodedToken;
-    // console.log(req.user);
     next();
   } catch (error) {
     console.log("Error verifying", error);
