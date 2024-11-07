@@ -27,14 +27,12 @@ const Login = () => {
         formData,
         { withCredentials: true }
       );
-      console.log("Login successfull", response.data);
 
       const token = response.data.token;
       const id = response.data.id;
 
       localStorage.setItem("id", id);
       localStorage.setItem("token", token);
-      console.log("token: ", token);
 
       //cookie approach
 
@@ -47,7 +45,6 @@ const Login = () => {
   
       if (cookies.token) {
         localStorage.setItem("cookieToken", cookies.token);
-        console.log("Token stored in local storage from cookie: ", cookies.token);
       }*/
 
       navigate("/");

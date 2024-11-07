@@ -19,8 +19,6 @@ const UpdateBlog = () => {
           `http://localhost:3000/api/v1/blogs/get-blog/${id}`
         );
         const fetchedBlog = response.data.data;
-        console.log(fetchedBlog.thumbnail);
-        console.log(fetchedBlog.title);
         setBlog(fetchedBlog);
         setTitle(fetchedBlog.title);
         setDescription(fetchedBlog.description);
@@ -45,14 +43,8 @@ const UpdateBlog = () => {
     if (thumbnail) {
       formData.append("thumbnail", thumbnail);
     }
-    console.log("thumbnail here", thumbnail);
-
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
 
     try {
-      console.log("id", id);
       await axiosInstance.patch(
         `http://localhost:3000/api/v1/blogs/update-blog/${id}`,
         formData
@@ -137,7 +129,6 @@ const UpdateBlog = () => {
                 id="thumbnail"
                 type="file"
                 onChange={(e) => {
-                  console.log("there", e.target.files[0]);
                   setThumbnail(e.target.files[0]);
                 }}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

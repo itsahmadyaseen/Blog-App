@@ -14,7 +14,6 @@ const MyBlogs = () => {
         const response = await axiosInstance.get(
           `http://localhost:3000/api/v1/blogs/get-user-blogs`
         );
-        // console.log(response.data);
         const fetchedBlogs = response.data.data;
 
         setBlogs(fetchedBlogs);
@@ -28,11 +27,9 @@ const MyBlogs = () => {
   }, [navigate]);
 
   const blogDetails = async (id) => {
-    // console.log("id", id);
     const response = await axiosInstance.get(
       `http://localhost:3000/api/v1/blogs/get-blog/${id}`
     );
-    // console.log("response", response.data);
     navigate(`/blog/${id}`, { state: { blog: response.data } });
   };
 

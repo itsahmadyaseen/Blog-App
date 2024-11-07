@@ -16,11 +16,10 @@ const Signup = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
+      await axios.post(
         "http://localhost:3000/api/v1/users/signup",
         formData
       );
-      console.log("User signed up", response.data);
       navigate("/login");
     } catch (error) {
       console.log("Unable to signup", error);

@@ -17,17 +17,15 @@ const AddBlog = () => {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("author", author);
-    console.log("thumbnail", thumbnail);
     if (thumbnail) {
       formData.append("thumbnail", thumbnail);
     }
 
     try {
-      const response = await axiosInstance.post(
+      await axiosInstance.post(
         "http://localhost:3000/api/v1/blogs/create-blog",
         formData
       );
-      console.log(response.data);
       navigate("/");
     } catch (error) {
       console.error("Error creating blog:", error);
@@ -85,7 +83,6 @@ const AddBlog = () => {
               id="thumbnail"
               type="file"
               onChange={(e) => {
-                console.log(e.target.files);
                 setThumbnail(e.target.files[0]);
               }}
               className="w-full px-3 py-2 border rounded-lg"

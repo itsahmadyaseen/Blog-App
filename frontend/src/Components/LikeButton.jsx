@@ -17,9 +17,7 @@ const LikeButton = ({ blogId, userId }) => {
       const blogResponse = await axiosInstance.get(
         `http://localhost:3000/api/v1/blogs/get-blog/${blogId}`
       );
-      console.log(blogResponse.data.data.likesCount);
       setLikesCount(blogResponse.data.data.likesCount);
-      console.log(userliked);
       setLiked(userliked);
     };
     checkIfLiked();

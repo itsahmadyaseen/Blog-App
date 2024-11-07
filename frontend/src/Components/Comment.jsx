@@ -13,7 +13,6 @@ const Comment = ({ blogId, userId }) => {
           `http://localhost:3000/api/v1/comments/${blogId}/comments`
         );
         const data = response.data.data;
-        console.log("Fetched comments:", data);
         setComments(data);
       } catch (error) {
         console.log("Error fetching comments:", error);
