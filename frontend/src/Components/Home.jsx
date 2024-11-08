@@ -14,7 +14,7 @@ const Home = () => {
       try {
         setLoading(true);
         const response = await axiosInstance.get(
-          "http://localhost:3000/api/v1/blogs/get-blogs"
+          "/api/v1/blogs/get-blogs"
         );
         setBlogs(response.data.data || []);
         setLoading(false);

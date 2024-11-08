@@ -23,7 +23,7 @@ const AddBlog = () => {
 
     try {
       await axiosInstance.post(
-        "http://localhost:3000/api/v1/blogs/create-blog",
+        "/api/v1/blogs/create-blog",
         formData
       );
       navigate("/");

@@ -16,7 +16,7 @@ const UpdateBlog = () => {
     const fetchBlog = async () => {
       try {
         const response = await axiosInstance.get(
-          `http://localhost:3000/api/v1/blogs/get-blog/${id}`
+          `/api/v1/blogs/get-blog/${id}`
         );
         const fetchedBlog = response.data.data;
         setBlog(fetchedBlog);
@@ -46,7 +46,7 @@ const UpdateBlog = () => {
 
     try {
       await axiosInstance.patch(
-        `http://localhost:3000/api/v1/blogs/update-blog/${id}`,
+        `/api/v1/blogs/update-blog/${id}`,
         formData
       );
       navigate(`/blog/${id}`);

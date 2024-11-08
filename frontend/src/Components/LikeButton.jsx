@@ -9,13 +9,13 @@ const LikeButton = ({ blogId, userId }) => {
   useEffect(() => {
     const checkIfLiked = async () => {
       const likeResponse = await axiosInstance.get(
-        `http://localhost:3000/api/v1/likes/${blogId}/get-likes`
+        `/api/v1/likes/${blogId}/get-likes`
       );
       const userliked = likeResponse.data.data.some(
         (like) => like.userId === userId
       );
       const blogResponse = await axiosInstance.get(
-        `http://localhost:3000/api/v1/blogs/get-blog/${blogId}`
+        `/api/v1/blogs/get-blog/${blogId}`
       );
       setLikesCount(blogResponse.data.data.likesCount);
       setLiked(userliked);
@@ -27,12 +27,12 @@ const LikeButton = ({ blogId, userId }) => {
     try {
       if (liked) {
         await axiosInstance.delete(
-          `http://localhost:3000/api/v1/likes/${blogId}/like`
+          `/api/v1/likes/${blogId}/like`
         );
         setLikesCount(likesCount - 1);
       } else {
         await axiosInstance.post(
-          `http://localhost:3000/api/v1/likes/${blogId}/like`
+          `/api/v1/likes/${blogId}/like`
         );
         setLikesCount(likesCount + 1);
       }

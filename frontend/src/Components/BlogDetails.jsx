@@ -15,7 +15,7 @@ const BlogDetails = () => {
     const fetchBlog = async () => {
       try {
         const response = await axiosInstance.get(
-          `http://localhost:3000/api/v1/blogs/get-blog/${id}`
+          `/api/v1/blogs/get-blog/${id}`
         );
         setUserId(response.data.userId);
         setBlog(response.data.data);
@@ -31,7 +31,7 @@ const BlogDetails = () => {
   const deleteBlog = async () => {
     try {
       await axiosInstance.delete(
-        `http://localhost:3000/api/v1/blogs/delete-blog/${id}`
+        `/api/v1/blogs/delete-blog/${id}`
       );
       navigate("/my-blogs");
     } catch (error) {

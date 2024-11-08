@@ -23,7 +23,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/users/login",
+        "https://blogjournal-nu.vercel.app/api/v1/users/login",
         formData,
         { withCredentials: true }
       );

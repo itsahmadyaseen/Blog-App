@@ -10,7 +10,7 @@ const Comment = ({ blogId, userId }) => {
     const fetchComments = async () => {
       try {
         const response = await axiosInstance.get(
-          `http://localhost:3000/api/v1/comments/${blogId}/comments`
+          `/api/v1/comments/${blogId}/comments`
         );
         const data = response.data.data;
         setComments(data);
@@ -25,7 +25,7 @@ const Comment = ({ blogId, userId }) => {
     e.preventDefault();
     try {
       const response = await axiosInstance.post(
-        `http://localhost:3000/api/v1/comments/${blogId}/comment`,
+        `/api/v1/comments/${blogId}/comment`,
         { content: newComment }
       );
       const addedComment = response.data.data; // assuming response contains the new comment data
@@ -39,7 +39,7 @@ const Comment = ({ blogId, userId }) => {
   const handleDelete = async (commentId) => {
     try {
       await axiosInstance.delete(
-        `http://localhost:3000/api/v1/comments/${blogId}/comment`,
+        `/api/v1/comments/${blogId}/comment`,
         {
           data: {
             commentId: commentId,
