@@ -17,7 +17,7 @@ const Signup = () => {
   const handleSubmit = async () => {
     try {
       await axios.post(
-        "https://blogjournal-nu.vercel.app/api/v1/users/signup",
+        "https://blog-app-beta-lake.vercel.app/api/v1/users/signup",
         formData
       );
       navigate("/login");

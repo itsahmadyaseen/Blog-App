@@ -23,7 +23,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://blogjournal-nu.vercel.app/api/v1/users/login",
+        "https://blog-app-beta-lake.vercel.app/api/v1/users/login",
         formData,
         { withCredentials: true }
       );

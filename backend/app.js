@@ -35,7 +35,7 @@ app.use("/api/v1/likes", likeRouter);
 app.use("/api/v1/comments", commentRouter);
 
 app.get("/", (req, res) => {
-  res.send("jbadw");
+  res.send("Server running");
 });
 
 app.listen(3000, () => {
