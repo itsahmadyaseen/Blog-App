@@ -48,7 +48,7 @@ const LikeButton = ({ blogId, userId }) => {
         className="border border-black rounded-md p-1 h-10 w-16"
         onClick={toggleLike}
       >
-        {liked ? "Unlike" : "Like"}
+        {liked ? "Dislike" : "Like"}
       </button>
       <span className="m-4 text-2xl">{likesCount}</span>
     </div>
